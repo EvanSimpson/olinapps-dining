@@ -2,6 +2,8 @@ var express = require('express');
 var rem = require('rem');
 var scrapi = require('scrapi');
 
+var daynames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
 var meals = [];
 rem.stream('http://olindining.com/CampusCenterDiningWeek1_005.htm').get().pipe(scrapi.parser({
   'breakfast': {
@@ -48,6 +50,7 @@ rem.stream('http://olindining.com/CampusCenterDiningWeek1_005.htm').get().pipe(s
 
     for (var i = 0; i < breakfast.length; i++) {
       meals.push({
+        dayname: daynames[i],
         breakfast: breakfast[i],
         lunch: lunch[i],
         dinner: dinner[i]
