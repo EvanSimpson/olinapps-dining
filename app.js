@@ -17,35 +17,39 @@ rem.stream('http://olindining.com/CampusCenterDiningWeek1_005.htm').get().pipe(s
     $each: '(text)'
   }
 }, function (res) {
-  function parse (datums) {
-    var brk = [];
-    var day = {};
-    var cur = [];
-    datums.forEach(function (b) {
-      b = b.substr(1);
-      if (b == 'REAKFAST' || b == 'UNCH' || b == 'INNER') {
-        day = [];
-        brk.push(day);
-      } else {
-        console.log(JSON.stringify(b));
-        if (!b.match(/^[\r\n]/)) {
-          cur = [];
-          day[b.match(/^[^\r]+/)[0]] = cur;
-          b = b.replace(/^[^\r]+/, '');
+  try {
+    function parse (datums) {
+      var brk = [];
+      var day = {};
+      var cur = [];
+      datums.forEach(function (b) {
+        b = b.substr(1);
+        if (b == 'REAKFAST' || b == 'UNCH' || b == 'INNER') {
+          day = [];
+          brk.push(day);
+        } else {
+          // console.log(JSON.stringify(b));
+          if (!b.match(/^[\r\n]/)) {
+            cur = [];
+            day[b.match(/^[^\r]+/)[0]] = cur;
+            b = b.replace(/^[^\r]+/, '');
+          }
+          cur.push(b.replace(/^\s+|\s+$/g, ''));
         }
-        cur.push(b.replace(/^\s+|\s+$/g, ''));
-      }
-    });
-    return brk;
+      });
+      return brk;
+    }
+
+    console.log(all);
+
+    all = {
+      breakfast: parse(res.breakfast),
+      lunch: parse(res.lunch),
+      dinner: parse(res.dinner),
+    };
+  } catch (e) {
+    console.log(e);
   }
-
-  console.log(all);
-
-  all = {
-    breakfast: parse(res.breakfast),
-    lunch: parse(res.lunch),
-    dinner: parse(res.dinner),
-  };
 }))
 
 var app = express();
