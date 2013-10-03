@@ -48,8 +48,10 @@ rem.stream('http://olindining.com/CampusCenterDiningWeek1_005.htm').get().pipe(s
       dinner: parse(res.dinner),
     };
   } catch (e) {
-    console.log(e);
+    console.log('ERROR:', e);
   }
+
+  console.log(all);
 }))
 
 var app = express();
