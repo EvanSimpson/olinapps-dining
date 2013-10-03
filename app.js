@@ -2,7 +2,7 @@ var express = require('express');
 var rem = require('rem');
 var scrapi = require('scrapi');
 
-var all = {};
+var meals = {};
 rem.stream('http://olindining.com/CampusCenterDiningWeek1_005.htm').get().pipe(scrapi.parser({
   'breakfast': {
     $query: '.brk',
@@ -40,9 +40,9 @@ rem.stream('http://olindining.com/CampusCenterDiningWeek1_005.htm').get().pipe(s
       return brk;
     }
 
-    console.log(all);
+    console.log(meals);
 
-    all = {
+    meals = {
       breakfast: parse(res.breakfast),
       lunch: parse(res.lunch),
       dinner: parse(res.dinner),
@@ -51,13 +51,13 @@ rem.stream('http://olindining.com/CampusCenterDiningWeek1_005.htm').get().pipe(s
     console.log('ERROR:', e);
   }
 
-  console.log(all);
+  console.log(JSON.stringify(meals));
 }))
 
 var app = express();
 
 app.get('/', function (req, res) {
-  res.json(all);
+  res.json(meals);
 })
 
 app.listen(process.env.PORT || 3000);
