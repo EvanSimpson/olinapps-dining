@@ -39,6 +39,8 @@ rem.stream('http://olindining.com/CampusCenterDiningWeek1_005.htm').get().pipe(s
     return brk;
   }
 
+  console.log(all);
+
   all = {
     breakfast: parse(res.breakfast),
     lunch: parse(res.lunch),
