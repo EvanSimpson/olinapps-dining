@@ -63,6 +63,10 @@ rem.stream('http://olindining.com/CampusCenterDiningWeek1_005.htm').get().pipe(s
 var app = express();
 
 app.get('/', function (req, res) {
+  res.redirect('/api');
+})
+
+app.get('/api', function (req, res) {
   res.json(meals);
 })
 
