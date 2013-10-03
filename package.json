@@ -4,6 +4,8 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "rem": "~0.6.7",
+    "scrapi": "~0.0.8",
     "express": "~3.4.0"
   },
   "devDependencies": {},
