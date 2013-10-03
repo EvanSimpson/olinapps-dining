@@ -25,22 +25,22 @@ rem.stream('http://olindining.com/CampusCenterDiningWeek1_005.htm').get().pipe(s
       datums.forEach(function (b) {
         b = b.substr(1);
         if (b == 'REAKFAST' || b == 'UNCH' || b == 'INNER') {
-          day = [];
+          day = {};
           brk.push(day);
         } else {
           // console.log(JSON.stringify(b));
           if (!b.match(/^[\r\n]/)) {
             cur = [];
-            day[b.match(/^[^\r]+/)[0]] = cur;
+            day[String(b.match(/^[^\r]+/)[0])] = cur;
             b = b.replace(/^[^\r]+/, '');
           }
-          cur.push(b.replace(/^\s+|\s+$/g, ''));
+          cur.push(String(b.replace(/^\s+|\s+$/g, '')));
         }
       });
       return brk;
     }
 
-    console.log(meals);
+    // console.log(meals);
 
     meals = {
       breakfast: parse(res.breakfast),
@@ -51,7 +51,7 @@ rem.stream('http://olindining.com/CampusCenterDiningWeek1_005.htm').get().pipe(s
     console.log('ERROR:', e);
   }
 
-  console.log(JSON.stringify(meals));
+  // console.log(JSON.stringify(meals));
 }))
 
 var app = express();
