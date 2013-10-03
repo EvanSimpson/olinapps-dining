@@ -1,3 +1,4 @@
+var express = require('express');
 var rem = require('rem');
 var scrapi = require('scrapi');
 
@@ -51,4 +52,4 @@ app.get('/', function (req, res) {
   res.json(all);
 })
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
