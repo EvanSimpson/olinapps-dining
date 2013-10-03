@@ -1,11 +1,11 @@
 var express = require('express');
 var rem = require('rem');
-var scrapi = require('scrapi');
+var skim = require('skim');
 
 var daynames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 var meals = [];
-rem.stream('http://olindining.com/CampusCenterDiningWeek1_005.htm').get().pipe(scrapi.parser({
+rem.stream('http://olindining.com/CampusCenterDiningWeek1_005.htm').get().pipe(skim({
   'breakfast': {
     $query: '.brk',
     $each: '(text)'
