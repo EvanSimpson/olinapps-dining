@@ -76,7 +76,7 @@ rem.stream('http://olindining.com/CampusCenterDiningWeek1_005.htm').get().pipe(s
           var name = String(b.replace(/^\s+|\s+$/g, ''));
           cur.push({
             name: name,
-            nutrition: 'http://olinapps-dining.heroku.com/api/nutrition/' + encodeURIComponent(name)
+            nutrition: nutrition[name]
           });
         }
       });
@@ -102,7 +102,20 @@ rem.stream('http://olindining.com/CampusCenterDiningWeek1_005.htm').get().pipe(s
   }
 
   console.log('SUCCESSFUL PARSING');
-  // console.log(JSON.stringify(meals));
+  nutrition = JSON.parse(JSON.stringify(meals));
+  meals.forEach(function (day) {
+    Object.keys(day).forEach(function (ok) {
+      if (typeof day[ok] == 'object') {
+        Object.keys(day[ok]).forEach(function (section) {
+          day[ok][section].forEach(function (meal) {
+            delete meal.nutrition;
+          })
+        })
+      }
+    })
+  })
+
+  console.log(JSON.stringify(meals));
 }))
 
 var app = express();
@@ -117,10 +130,6 @@ app.get('/api', function (req, res) {
 
 app.get('/api/nutrition', function (req, res) {
   res.json(nutrition);
-})
-
-app.get('/api/nutrition/:id', function (req, res) {
-  res.json(nutrition[req.params.id]);
 })
 
 app.listen(process.env.PORT || 3000);
