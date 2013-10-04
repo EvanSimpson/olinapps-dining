@@ -29,14 +29,14 @@ function getMenuStream (next) {
   }));
 }
 
+var meals = [];
+var nutrition = {};
 getMenuStream(function (href) {
   if (!href) {
     console.error('BAD NEWS', href);
     return;
   }
 
-  var meals = [];
-  var nutrition = {};
   rem.stream('http://olindining.com/' + href).get().pipe(skim({
     'breakfast': {
       $query: '.brk',
