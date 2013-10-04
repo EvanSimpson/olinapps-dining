@@ -114,8 +114,6 @@ rem.stream('http://olindining.com/CampusCenterDiningWeek1_005.htm').get().pipe(s
       }
     })
   })
-
-  console.log(JSON.stringify(meals));
 }))
 
 var app = express();
