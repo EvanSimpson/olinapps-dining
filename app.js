@@ -8,7 +8,7 @@ function getMenuStream (next) {
   var dif, d = new Date(); // Today's date 
   dif = (d.getDay() + 6) % 7; // Number of days to subtract 
   d = new Date(d - dif * 24*60*60*1000); // Do the subtraction 
-  var dstr = (d.getMonth() + 1) + '/' + d.getDate();
+  var dstr = (d.getMonth() + 1) + '/' + ('00' + d.getDate()).substr(-2);
 
   rem.stream('http://olindining.com/').get().pipe(skim({
     'links': {
